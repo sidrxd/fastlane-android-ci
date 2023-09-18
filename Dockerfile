@@ -4,7 +4,7 @@ MAINTAINER Siddharth Shakya <sid7830@gmail.com>
 ENV VERSION_TOOLS "8512546"
 
 ENV ANDROID_SDK_ROOT "/sdk"
-# Keep alias for compatibility
+# Keep alias for compatibilit
 ENV ANDROID_HOME "${ANDROID_SDK_ROOT}"
 ENV PATH "$PATH:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools"
 ENV DEBIAN_FRONTEND noninteractive
