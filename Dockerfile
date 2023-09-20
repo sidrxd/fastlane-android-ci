@@ -23,8 +23,8 @@ RUN apt-get -qq update \
       lib32z1 \
       unzip \
       locales \
-      ruby2.7 \
-      ruby2.7-dev \
+      ruby3.0 \
+      ruby3.0-dev \
       build-essential \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN locale-gen en_US.UTF-8
