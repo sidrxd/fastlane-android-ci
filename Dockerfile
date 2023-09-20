@@ -48,6 +48,7 @@ RUN mkdir -p /root/.android \
  && touch /root/.android/repositories.cfg \
  && sdkmanager --update
 RUN gem install bundler
+RUN bundle install
 RUN gem install fastlane
 
 
