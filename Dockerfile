@@ -11,7 +11,6 @@ ENV ANDROID_HOME "${ANDROID_SDK_ROOT}"
 ENV PATH "$PATH:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools"
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
-
 # Update packages and install dependencies
 RUN apt-get -qq update \
  && apt-get install -qqy --no-install-recommends \
@@ -27,8 +26,8 @@ RUN apt-get -qq update \
       lib32z1 \
       unzip \
       locales \
-      ruby \
-      ruby-dev \
+      ruby2.7 \
+      ruby2.7-dev \
       build-essential \
       wget \
       gnupg2 \
@@ -64,23 +63,19 @@ RUN mkdir -p /root/.android \
 RUN gem install bundler \
  && gem install fastlane
 
-# Install Jenkins
+FROM jenkins/jenkins:latest
+
+# Switch to root user for administrative tasks
 USER root
-RUN apt-get update && apt-get install -y gnupg2 \
- && wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add - \
- && apt-get update \
- && apt-get install -qqy --no-install-recommends \
-      jenkins \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
- && usermod -aG staff jenkins \
- && usermod -aG users jenkins \
- && chmod 755 /usr/share/jenkins/ref/init.groovy.d/
 
-# Expose Jenkins web UI port
-EXPOSE 8081
+# Install additional packages and dependencies
+RUN apt-get update && apt-get install -y \
+    gnupg2 \
+    apt-transport-https \
+    && rm -rf /var/lib/apt/lists/*
 
-# Switch back to a non-root user (replace 'your_non_root_user' with your actual user)
-USER your_non_root_user
+# Switch back to the Jenkins user
+USER jenkins
 
 # Set the working directory or any other custom configurations if needed
 # WORKDIR /path/to/your/app
