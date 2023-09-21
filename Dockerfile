@@ -1,5 +1,5 @@
 # Use the Ubuntu 20.04 base image
-FROM ubuntu:20.04
+FROM jenkins/jenkins:latest
 
 # Maintainer information
 MAINTAINER Siddharth Shakya <sid7830@gmail.com>
