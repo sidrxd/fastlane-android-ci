@@ -66,9 +66,9 @@ RUN gem install bundler \
 
 # Install Jenkins
 USER root
-RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add - \
- && echo "deb http://pkg.jenkins.io/debian-stable binary/" >> /etc/apt/sources.list \
- && apt-get -qq update \
+RUN apt-get update && apt-get install -y gnupg2 \
+ && wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add - \
+ && apt-get update \
  && apt-get install -qqy --no-install-recommends \
       jenkins \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
